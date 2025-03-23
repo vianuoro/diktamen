@@ -1,0 +1,1 @@
+while IFS= read -r line; do for i in $line; do rm *.mp3; wget $(curl -s 'https://ttsmp3.com/makemp3_new.php' --data-raw "msg=$i&lang=Astrid&source=ttsmp3" | jq -r '.URL' | sed 's/\\//g'); ffplay -autoexit -t '231' *.mp3; done; done < lines.txt
