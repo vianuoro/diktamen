@@ -1,5 +1,5 @@
 rm *.mp3
-while IFS= read -r line; do 
+while IFS= read -r -nostdin line; do 
         wget $(curl -s 'https://ttsmp3.com/makemp3_new.php' --data-raw "msg=$line&lang=Astrid&source=ttsmp3" | jq -r '.URL' | sed 's/\\//g');
         ffmpeg -i *.mp3 -filter:a "atempo=0.8" file_0.8.mp3;
 	sox file_0.8.mp3 file_0.8_pad.mp3 pad 1;
