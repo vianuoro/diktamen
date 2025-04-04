@@ -1,5 +1,6 @@
 #!/bin/bash
 rm *.mp3
+rm mp3_files/*.mp3
 IFS=$'\n' read -d '' -r -a lines < lines.txt
 index=0
 for i in "${lines[@]}"; do 
