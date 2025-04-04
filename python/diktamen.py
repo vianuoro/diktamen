@@ -6,26 +6,28 @@ import os
 DEFAULT_VOICE = "sv-SE-SofieNeural"  # Swedish female voice
 DEFAULT_RATE = 0  # Normal speed (0%)
 
-async def text_to_speech(input_file, output_file, voice, rate):
-    if not os.path.isfile(input_file):
-        print(f"Error: File '{input_file}' does not exist.")
-        return
-
-    with open(input_file, "r", encoding="utf-8") as file:
-        text = file.read()
-
+async def text_to_speech(text, output_file, voice, rate):
     # Convert numeric rate to string with a percent sign
-    rate_str = f"{rate}%"
+    rate_str = f"{int(rate):+d}%"
+    
+    # Create a Communicate instance with the provided text and parameters
     communicate = edge_tts.Communicate(text, voice=voice, rate=rate_str)
+    
+    # Save the speech output to the specified file
     await communicate.save(output_file)
     print(f"MP3 saved to: {output_file}")
 
 def main():
+    # Set up argument parser
     parser = argparse.ArgumentParser(
         description="Swedish Text-to-Speech (TTS) using edge-tts with numeric reading speed"
     )
-    parser.add_argument("input_file", help="Path to input text file (in Swedish)")
+    
+    # Accept a string argument directly rather than a file path
+    parser.add_argument("text", help="Text to convert to speech")
     parser.add_argument("output_file", help="Path to output MP3 file")
+    
+    # Optional arguments for rate and voice
     parser.add_argument(
         "--rate",
         type=float,
@@ -38,8 +40,11 @@ def main():
         help="Voice to use (default: sv-SE-SofieNeural)."
     )
 
+    # Parse the arguments
     args = parser.parse_args()
-    asyncio.run(text_to_speech(args.input_file, args.output_file, args.voice, args.rate))
+    
+    # Run the text to speech conversion
+    asyncio.run(text_to_speech(args.text, args.output_file, args.voice, args.rate))
 
 if __name__ == "__main__":
     main()
