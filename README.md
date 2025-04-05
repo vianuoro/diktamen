@@ -2,10 +2,10 @@
 diktamen till Anna 😀 
 
 Python3 environment:
-  pip3 install virtualenv
-  python3 source newenv/bin/activate
-  virtualenv venv -p python --system-site-packages
-  source venv/bin/activate
+- pip3 install virtualenv
+- python3 source newenv/bin/activate
+- virtualenv venv -p python --system-site-packages
+- source venv/bin/activate
 
 Packages to install in your virtualenv: mpv cox ffmpeg
 
