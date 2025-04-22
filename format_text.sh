@@ -35,7 +35,7 @@ done
 text=$(echo "$text" | sed ':a;N;$!ba;s/\n/ nyrad /g')
 
 # Split sentences into separate lines (assuming they end with 'punkt', 'frågetecken', or 'utropstecken')
-text=$(echo "$text" | sed -E 's/(punkt( punkt)*) /\1\n/g)
+text=$(echo "$text" | sed -E 's/(punkt( punkt)*) /\1\n/g')
 
 # Output the modified text
 echo "$text"
